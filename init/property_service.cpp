@@ -998,6 +998,9 @@ static void property_derive_build_display_id() {
     const std::string UNKNOWN = "unknown";
     std::string build_type = GetProperty("ro.build.type", "");
     if (build_type == "user") {
+        // Workaround SafetyNet
+        workaround_snet_properties();
+
         std::string display_build_number = GetProperty("ro.build.display_build_number", "");
         if (display_build_number == "true") {
             build_display_id = GetProperty("ro.build.id", UNKNOWN);
@@ -1010,9 +1013,6 @@ static void property_derive_build_display_id() {
             build_display_id += ' ';
             build_display_id += GetProperty("ro.build.keys", UNKNOWN);
         }
-
-        // Workaround SafetyNet
-        workaround_snet_properties();
     } else {
             build_display_id = GetProperty("ro.product.name", UNKNOWN);
             build_display_id += '-';
@@ -1040,8 +1040,8 @@ static void property_derive_build_display_id() {
 static void property_derive_build_props() {
     property_derive_build_fingerprint();
     property_derive_build_product();
-    property_derive_build_description();
     property_derive_build_display_id();
+    property_derive_build_description();
 }
 
 void property_load_boot_defaults(bool load_debug_prop) {
