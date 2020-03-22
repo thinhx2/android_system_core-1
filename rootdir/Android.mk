@@ -297,6 +297,9 @@ LOCAL_MODULE_PATH := $(TARGET_OUT_ETC)
 LOCAL_MODULE_STEM := $$(LOCAL_MODULE)
 include $(BUILD_SYSTEM)/base_rules.mk
 ld_config_template := $(LOCAL_PATH)/etc/ld.config.txt
+ifdef TARGET_CUSTOM_LDCONFIG_TEMPLATE_$(1)
+ld_config_template := $(TARGET_CUSTOM_LDCONFIG_TEMPLATE_$(1))
+endif
 check_backward_compatibility := true
 vndk_version := $(1)
 lib_list_from_prebuilts := true
