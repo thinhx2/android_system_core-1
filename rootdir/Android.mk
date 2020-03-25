@@ -260,6 +260,9 @@ LOCAL_MODULE_STEM := $(call append_vndk_version,$(LOCAL_MODULE))
 include $(BUILD_SYSTEM)/base_rules.mk
 ld_config_template := $(LOCAL_PATH)/etc/ld.config.txt
 check_backward_compatibility := true
+ifdef TARGET_CUSTOM_LDCONFIG_TEMPLATE_$(1)
+ld_config_template := $(TARGET_CUSTOM_LDCONFIG_TEMPLATE_$(1))
+endif
 vndk_version := $(PLATFORM_VNDK_VERSION)
 include $(LOCAL_PATH)/update_and_install_ld_config.mk
 
